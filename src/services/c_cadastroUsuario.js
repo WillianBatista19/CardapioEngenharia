@@ -3,7 +3,7 @@ const conectaAoBancoDeDado = require('./conectaBanco');
 async function insertData() {
     const collection = await conectaAoBancoDeDado("usuario");
 
-    const obj = { login: "Joao", senha: "1234" };
+    const obj = { login: "Pedro", senha: "1234" };
 
     const result = await collection.insertOne(obj);
     console.log(`1 novo usuario inserido com o ID: ${result.insertedId}`);
