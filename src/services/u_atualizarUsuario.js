@@ -1,7 +1,7 @@
-const connectToDatabase = require('./conectaBanco');
+const conectaAoBancoDeDado = require('./conectaBanco');
 
 async function updateData(filter, update) {
-    const collection = await connectToDatabase();
+    const collection = await conectaAoBancoDeDado("usuario");
 
     const result = await collection.updateOne(filter, { $set: update });
     console.log(`Documento atualizado: ${result.modifiedCount} documento(s) atualizado(s)`);

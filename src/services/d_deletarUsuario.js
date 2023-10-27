@@ -1,7 +1,7 @@
-const connectToDatabase = require('./conectaBanco');
+const conectaAoBancoDeDado = require('./conectaBanco');
 
 async function deleteData(filter) {
-    const collection = await connectToDatabase();
+    const collection = await conectaAoBancoDeDado("usuario");
 
     const result = await collection.deleteOne(filter);
     console.log(`Documento excluído: ${result.deletedCount} documento(s) excluído(s)`);

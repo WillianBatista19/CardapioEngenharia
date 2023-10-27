@@ -1,7 +1,7 @@
-const connectToDatabase = require('./conectaBanco');
+const conectaAoBancoDeDado = require('./conectaBanco');
 
 async function insertData() {
-    const collection = await connectToDatabase();
+    const collection = await conectaAoBancoDeDado("usuario");
 
     const obj = { login: "Joao", senha: "1234" };
 
