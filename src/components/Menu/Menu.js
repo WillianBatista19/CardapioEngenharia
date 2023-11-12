@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import burgerImage from '../imgs/planodefundo.jpg';
+import Navbar from '../Navbar/nav';
+import Footer from '../Footer/Footer';
 
 function Menu() {
   const produtos = [
@@ -22,10 +24,29 @@ function Menu() {
       descricao: 'Deliciosas batatas fritas crocantes e temperadas.',
       preco: 5.99,
     },
+    {
+      id: 4,
+      nome: 'Hamburguer Simples',
+      descricao: 'Deliciosas carnes crocantes e temperadas.',
+      preco: 7.99,
+    },
+    {
+      id: 5,
+      nome: 'Hamburgão',
+      descricao: 'Delicioso hamburgão com tudo de bom.',
+      preco: 9.99,
+    },
+    {
+      id: 6,
+      nome: 'Hamburguer Artesanal',
+      descricao: 'Delicioso hamburguer gourmet com molho especial e deliciosas gorduras tipo LDS',
+      preco: 17.99,
+    }
   ];
 
   return (
     <Container>
+      <Navbar/>
       <Row className="mt-5">
         {produtos.map((produto) => (
           <Col key={produto.id} xs={12} md={4}>
@@ -43,6 +64,7 @@ function Menu() {
           </Col>
         ))}
       </Row>
+      <Footer/>
     </Container>
   );
 }

@@ -1,0 +1,28 @@
+/*Navbar*/
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
+
+.navbar {
+    font-family: 'Agbalumo';
+    font-size: 1.2em;
+}
+
+.bg-light {
+    border-bottom: 1px solid #00000025;
+}
+
+.navbar-expand-lg .navbar-collapse  {
+    justify-content: flex-end;
+}
+
+.nav-item {
+    border-right: 0.2px solid rgb(209, 209, 209);
+}
+
+.nav-item:last-child {
+    border-right: none;
+}
+
+.navbar-logo {
+    border-radius: 50%;
+    border: 1px solid rgb(172, 172, 172);
+}
