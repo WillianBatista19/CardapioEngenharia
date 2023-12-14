@@ -1,17 +1,42 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
+
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //lógica de registro fica aqui pessoal 
-     console.log('Nome:', name);
-    console.log('Email:', email);
-    console.log('Senha:', password);
+    // console.log('Ok')
+    // console.log('Nome:', name);
+    // console.log('Email:', email);
+    // console.log('Senha:', password);
+    
+    e.preventDefault();
+    // console.log('Ok')
+    // console.log('Nome:', name);
+    // console.log('Email:', email);
+    // console.log('Senha:', password);
+    
+    try {
+      console.log('try')
+      const response = await fetch(`http://localhost:3005/api/cadusuario/${name}/${email}/${password}`);
+      // console.log(response)
+      if (!response.ok) {
+          // console.log('try 2')
+          throw new Error('Erro ao cadastrar usuário');
+      }
+
+      const data = await response.json();
+      console.log('Usuário encontrado:', data);
+      // Faça algo com os dados do usuário, como exibí-los na tela
+  } catch (error) {
+      // console.log('catch')
+      console.error('Erro ao cadastrar usuário:', error.message);
+      // Tratar o erro conforme necessário
+  }
   };
 
   return (

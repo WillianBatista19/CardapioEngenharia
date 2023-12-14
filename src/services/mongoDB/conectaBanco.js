@@ -3,7 +3,9 @@
     npm install mongodb
 */
 const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://davidwaters503:5gHPskLgrhrutY1S@cluster0.3futgrs.mongodb.net/";
+// const uri = "mongodb+srv://davidwaters503:5gHPskLgrhrutY1S@cluster0.3futgrs.mongodb.net/";
+const uri = "mongodb+srv://davidwaters503:5gHPskLgrhrutY1S@cluster0.3futgrs.mongodb.net/?retryWrites=true&w=majority";
+
 
 const client = new MongoClient(uri);
 
