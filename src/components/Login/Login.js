@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import './Login.css';
 import { Link } from 'react-router-dom';
+import Navbar from '../Navbar/nav';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,6 +16,7 @@ const Login = () => {
 
   return (
     <Container>
+      <Navbar/>
       <Row className="justify-content-center mt-5">
         <Col xs={12} md={6}>
           <div className="text-center mb-4">
@@ -43,7 +44,7 @@ const Login = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" block className="button-container">
+            <Button variant="primary" type="submit" block className="mt-4">
               Entrar
             </Button>
           </Form>

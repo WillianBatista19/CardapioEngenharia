@@ -49,7 +49,7 @@ function Menu() {
       <Navbar/>
       <Row className="mt-5">
         {produtos.map((produto) => (
-          <Col key={produto.id} xs={12} md={4}>
+          <Col  className="mb-4" key={produto.id} xs={12} md={4}>
             <Card className="mb-4 h-100 d-flex flex-column">
               <Card.Img variant="top" src={burgerImage} alt={produto.nome} />
               <Card.Body className="d-flex flex-column">
