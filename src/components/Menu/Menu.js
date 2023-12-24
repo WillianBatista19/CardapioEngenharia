@@ -45,8 +45,9 @@ function Menu() {
   ];
 
   return (
+    <>
+    <Navbar/>
     <Container>
-      <Navbar/>
       <Row className="mt-5">
         {produtos.map((produto) => (
           <Col  className="mb-4" key={produto.id} xs={12} md={4}>
@@ -64,8 +65,9 @@ function Menu() {
           </Col>
         ))}
       </Row>
-      <Footer/>
     </Container>
+    <Footer/>
+    </>
   );
 }
 
