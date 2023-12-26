@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/nav';
+import Footer from '../Footer/Footer';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -15,8 +16,9 @@ const Login = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <Container>
-      <Navbar/>
       <Row className="justify-content-center mt-5">
         <Col xs={12} md={6}>
           <div className="text-center mb-4">
@@ -55,6 +57,8 @@ const Login = () => {
         </Col>
       </Row>
     </Container>
+    <Footer/>
+    </>
   );
 };
 

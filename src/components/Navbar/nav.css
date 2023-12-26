@@ -4,6 +4,7 @@
 .navbar {
     font-family: 'Agbalumo';
     font-size: 1.2em;
+    padding: 25px;
 }
 
 .bg-light {
@@ -25,4 +26,5 @@
 .navbar-logo {
     border-radius: 50%;
     border: 1px solid rgb(172, 172, 172);
+    margin: 10px;
 }

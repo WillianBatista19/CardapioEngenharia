@@ -17,8 +17,8 @@ const Register = () => {
 
   return (
     <>
+    <Navbar/>
       <Container>
-        <Navbar/>
         <Row className="justify-content-center mt-5">
           <Col xs={12} md={6}>
             <div className="text-center mb-4">
@@ -63,6 +63,7 @@ const Register = () => {
           </Col>
         </Row>
       </Container>
+      <Footer/>
     </>
   );
 };
