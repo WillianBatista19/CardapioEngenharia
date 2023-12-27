@@ -4,8 +4,9 @@ import Menu from './components/Menu/Menu';
 import Login from './components/Login/Login';
 import Register from './components/Registro/Register';
 import Empresa from './components/Empresa/Empresa';
+import ProductList from './components/ProductList';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Routes>
@@ -13,9 +14,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/empresa" element={<Empresa />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/ProductList" element={<ProductList/>} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
+

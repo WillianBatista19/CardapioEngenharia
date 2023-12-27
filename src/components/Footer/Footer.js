@@ -2,7 +2,7 @@ import './Footer.css'
 
 function Footer() {
     return(
-        <footer class="bg-dark text-center text-white">
+        <footer class="bg-dark text-center text-white footer">
             <div class="container p-4 pb-0">
                 <section class="mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
