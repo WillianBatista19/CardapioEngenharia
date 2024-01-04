@@ -11,13 +11,43 @@ const ProductManagement = () => {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
 
-  const addProduct = (newProduct) => {
+  const addProduct = async (newProduct) => {
+    setProducts([...products, { ...newProduct, id: nextId }]);
+    setNextId(nextId + 1);
+
+    console.log(newProduct.name)
+    console.log(newProduct.price)
+
+    try {
+      console.log('try')
+      const response = await fetch(`http://localhost:3005/api/cadproduto/${newProduct.name}/${newProduct.price}`);
+      console.log(response)
+      if (!response.ok) {
+          console.log('erro')
+          throw new Error('Erro ao cadastrar produto');
+      }
+
+      const data = await response.json();
+      console.log('Produto cadastrado:', data);
+      // Faça algo com os dados do usuário, como exibí-los na tela
+    } catch (error) {
+        // console.log('catch')
+        console.error('Erro ao cadastrar produto:', error.message);
+        // Tratar o erro conforme necessário
+    }
+
+    // Para limpar os campos de input, ficava feio ter que apagar na mão
+    setProductName('');
+    setProductPrice('');
+  };
+
+  /*const addProduct = (newProduct) => {
     setProducts([...products, { ...newProduct, id: nextId }]);
     setNextId(nextId + 1);
     // Para limpar os campos de input, ficava feio ter que apagar na mão
     setProductName('');
     setProductPrice('');
-  };
+  };*/
 
   const editProduct = (productId, updatedProduct) => {
     setProducts((prevProducts) =>
