@@ -8,11 +8,29 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     //lógica de autenticação tem que ficar aqui galera
     console.log('Email:', email);
     console.log('Senha:', password);
+    try {
+      console.log('try')
+      const response = await fetch(`http://localhost:3005/api/usuario/${email}/${password}`);
+      // console.log(response)
+      if (!response.ok) {
+          console.log('try 2')
+          throw new Error('Erro ao buscar usuário');
+      }
+
+      const data = await response.json();
+
+      console.log('Usuário encontrado:', data);
+      // Faça algo com os dados do usuário, como exibí-los na tela
+    } catch (error) {
+        console.log('catch')
+        console.error('Erro ao buscar usuário:', error.message);
+        // Tratar o erro conforme necessário
+    }
   };
 
   return (
