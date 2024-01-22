@@ -74,8 +74,8 @@ function Empresa(){
                 </div>
             </div>
 
-            {/* FOOTER */}
         </Container>
+        {/* FOOTER */}
         <Footer/>
         </>
     )

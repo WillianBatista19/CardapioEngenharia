@@ -39,7 +39,6 @@ function Navbar() {
               Login
             </Link>
           </li>
-          {/* Adicionando a rota para ProductList */}
           <li className="nav-item">
             <Link className="nav-link" to="/ProductList">
               Gerenciar

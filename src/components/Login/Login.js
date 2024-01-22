@@ -25,11 +25,9 @@ const Login = () => {
       const data = await response.json();
 
       console.log('Usuário encontrado:', data);
-      // Faça algo com os dados do usuário, como exibí-los na tela
     } catch (error) {
         console.log('catch')
         console.error('Erro ao buscar usuário:', error.message);
-        // Tratar o erro conforme necessário
     }
   };
 
