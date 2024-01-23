@@ -4,21 +4,15 @@ import { useProductContext } from "./ProductContext";
 
 const ProductManagement = () => {
   const { products, setProducts } = useProductContext();
-
-  // nome, preço e descrição do produto
+  const [editingProduct, setEditingProduct] = useState(null);
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productDescription, setProductDescription] = useState("");
-
-  const [editingProduct, setEditingProduct] = useState(null);
+  const [productImage, setProductImage] = useState(null);
 
   const addProduct = (newProduct) => {
     setProducts([...products, { ...newProduct, id: products.length + 1 }]);
-    // Para limpar os campos de input automaticamente 
-    setProductName("");
-    setProductPrice("");
-    setProductDescription("");
-    setEditingProduct(null);
+    clearForm();
   };
 
   const editProduct = (productId, updatedProduct) => {
@@ -27,14 +21,14 @@ const ProductManagement = () => {
         product.id === productId ? { ...product, ...updatedProduct } : product
       )
     );
-    setEditingProduct(null);
+    clearForm();
   };
 
   const deleteProduct = (productId) => {
     setProducts((prevProducts) =>
       prevProducts.filter((product) => product.id !== productId)
     );
-    setEditingProduct(null);
+    clearForm();
   };
 
   const handleEdit = (productId) => {
@@ -43,13 +37,20 @@ const ProductManagement = () => {
     setProductName(productToEdit.name);
     setProductPrice(productToEdit.price.toFixed(2));
     setProductDescription(productToEdit.description);
+    setProductImage(productToEdit.image);
   };
 
   const handleCancelEdit = () => {
     setEditingProduct(null);
+    clearForm();
+  };
+
+  const clearForm = () => {
     setProductName("");
     setProductPrice("");
     setProductDescription("");
+    setProductImage(null);
+    setEditingProduct(null);
   };
 
   return (
@@ -66,12 +67,14 @@ const ProductManagement = () => {
                 name: e.target.name.value,
                 price: parseFloat(e.target.price.value),
                 description: e.target.description.value,
+                image: productImage,
               });
             } else {
               addProduct({
                 name: e.target.name.value,
                 price: parseFloat(e.target.price.value),
                 description: e.target.description.value,
+                image: productImage,
               });
             }
           }}
@@ -111,6 +114,16 @@ const ProductManagement = () => {
               />
             </div>
             <div className="col-md-2 mb-3 align-self-end">
+              <label htmlFor="image">Imagem:</label>
+              <input
+                type="file"
+                className="form-control-file"
+                id="image"
+                accept="image/*"
+                onChange={(e) => setProductImage(e.target.files[0])}
+              />
+            </div>
+            <div className="col-md-2 mb-3 align-self-end">
               <button
                 type="submit"
                 className={`btn ${
@@ -141,6 +154,7 @@ const ProductManagement = () => {
               <th>Nome</th>
               <th>Preço</th>
               <th>Descrição</th>
+              <th>Imagem</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -151,6 +165,15 @@ const ProductManagement = () => {
                 <td>{product.name}</td>
                 <td>{product.price.toFixed(2)}</td>
                 <td>{product.description}</td>
+                <td>
+                  {product.image && (
+                    <img
+                      src={URL.createObjectURL(product.image)}
+                      alt={`Imagem de ${product.name}`}
+                      style={{ width: '50px', height: '50px', objectFit: 'cover' }}
+                    />
+                  )}
+                </td>
                 <td>
                   <button
                     className="btn btn-info mr-2"
