@@ -1,0 +1,19 @@
+.container2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.card_menu{
+    width: 25%;
+    padding: 15px;
+    border: 1px solid gray;
+    border-radius: 15%;
+}
+
+.card_menu > img{
+    border-radius: 15%;
+    margin-bottom: 15px;
+}
