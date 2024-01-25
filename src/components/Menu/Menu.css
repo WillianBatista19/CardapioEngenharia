@@ -1,3 +1,9 @@
+.img1 {
+    background-image: url('../imgs/imagem1.jpg');
+    background-repeat: no-repeat;
+    background-position: 100px 250px;
+}
+
 .container2{
     display: flex;
     flex-wrap: wrap;

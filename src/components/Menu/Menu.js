@@ -15,7 +15,7 @@ import card3 from '../imgs/card3.jpg';
 
 function Menu() {
   return (
-    <>
+    <div class="img1">
     <Navbar/>
     <Container>
     <div className="container mt-5">
@@ -99,7 +99,7 @@ function Menu() {
       </div> */}
     </Container>
     <Footer/>
-    </>
+    </div>
 );
 }
 

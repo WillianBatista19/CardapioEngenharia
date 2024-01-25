@@ -8,7 +8,7 @@ import './Empresa.css';
 
 function Empresa(){
     return( 
-        <>
+        <div class="img1">
         {/* Navbar */}
         <Navbar/>
 
@@ -77,7 +77,7 @@ function Empresa(){
         </Container>
         {/* FOOTER */}
         <Footer/>
-        </>
+        </div>
     )
 };
 
