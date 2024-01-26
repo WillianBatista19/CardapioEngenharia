@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card} from "react-bootstrap";
 import Navbar from "../Navbar/nav";
 import Footer from "../Footer/Footer";
 import { useProductContext } from "../Produtos/ProductContext";
@@ -40,7 +40,6 @@ function Cardapio() {
                         <Card.Text className="font-weight-bold">
                           R$ {product.price.toFixed(2)}
                         </Card.Text>
-                        <Button variant="primary">Adicionar ao Carrinho</Button>
                       </>
                     )}
                   </div>
