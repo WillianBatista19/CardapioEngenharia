@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-// const MongoClient = require('mongodb').MongoClient;
 const conectaAoBancoDeDado = require('./conectaBanco');
 
 const app = express();
@@ -9,24 +8,6 @@ const port = 3005;
 
 app.use(cors());
 app.use(bodyParser.json());
-
-// const mongoUrl = 'mongodb://localhost:27017'; // Altere conforme necessário
-// const mongoUrl = 'mongodb+srv://davidwaters503:5gHPskLgrhrutY1S@cluster0.3futgrs.mongodb.net/'
-// const dbName = 'EngII'; // Altere conforme necessário
-
-/*
-let db;
-
-
-MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
-    if (err) {
-        console.error('Erro ao conectar ao MongoDB:', err);
-        return;
-    }
-    console.log('Conectado ao MongoDB');
-    db = client.db(dbName);
-});
-*/
 
 // Ok - Rota para adicionar um novo usuário
 app.get('/api/cadusuario/:nome/:login/:senha', (req, res) => {
@@ -84,42 +65,24 @@ app.get('/api/usuario/:email/:senha', (req, res) => {
     
 });
 
-/* // Ok - Rota para adicionar um novo produto
-app.get('/api/cadproduto/:nome/:descricao/:preco', (req, res) => {
+// Ok - Rota para adicionar um novo produto
+app.get('/api/cadproduto/:id/:nome/:descricao/:preco/:imagem', (req, res) => {
+    let idNovo = req.params.id;
+    idNovo = parseInt(idNovo, 10)
     let nomeNovo = req.params.nome;
     let descricaoNova = req.params.descricao;
     let precoNovo = req.params.preco;
-    console.log(nomeNovo);
-    console.log(descricaoNova);
-    console.log(precoNovo);
+    precoNovo = Number(precoNovo);
+    let imagemNova = req.params.imagem;
+
+    if (imagemNova == null || imagemNova === '' || imagemNova === "null"|| imagemNova === 'null') {
+        imagemNova = null;
+    } 
 
     async function insertData() {
         const collection = await conectaAoBancoDeDado("produto");
-    
-        const obj = { nome: nomeNovo, descricao: descricaoNova, preco: precoNovo };
-    
-        const result = await collection.insertOne(obj);
-        console.log(`1 novo produto inserido com o ID: ${result.insertedId}`);
-    
-        // Fecha a conexão com o banco de dados
-        const client = collection.s.db.client;
-        client.close(); 
-    }
-    
-    insertData().catch(console.error);
-});*/
 
-// Ok - Rota para adicionar um novo produto
-app.get('/api/cadproduto/:nome/:preco', (req, res) => {
-    let nomeNovo = req.params.nome;
-    let precoNovo = req.params.preco;
-    console.log(nomeNovo);
-    console.log(precoNovo);
-
-    async function insertData() {
-        const collection = await conectaAoBancoDeDado("produto");
-    
-        const obj = { nome: nomeNovo, preco: precoNovo };
+        const obj = {id: idNovo, name: nomeNovo, price: precoNovo, description: descricaoNova, image: imagemNova };
     
         const result = await collection.insertOne(obj);
         console.log(`1 novo produto inserido com o ID: ${result.insertedId}`);
@@ -161,40 +124,94 @@ app.get('/api/usuario/:nome', (req, res) => {
     
 });
 
+// Ok - Rota para atualizar um produto
+app.get('/api/atualizaproduto/:id/:nome/:descricao/:preco/:imagem', (req, res) => {
+    let nomeNovo = req.params.nome;
+    let idNovo = req.params.id;
+    idNovo = parseInt(idNovo, 10)
+    let descricaoNova = req.params.descricao;
+    let precoNovo = req.params.preco;
+    precoNovo = Number(precoNovo);
+    let imagemNova = req.params.imagem;
 
+    if (imagemNova == null || imagemNova === '' || imagemNova === "null"|| imagemNova === 'null') {
+        imagemNova = null;
+    } 
 
+    const update = { name: nomeNovo, price: precoNovo, description: descricaoNova, image: imagemNova };
 
-// Ok - Rota para exibir todos os produtos
-app.get('/api/exibetodosprodutos/', (req, res) => {
-    //let nome = req.params.nome;
-    //console.log(nome);
+    const filter = { id: idNovo }
 
-    readData().catch(console.error);
-
-    async function readData() {
-
+    async function updateData(filter, update) {
         const collection = await conectaAoBancoDeDado("produto");
-        // const filter = { login: nome };
-        // console.log(collection);
 
-
-        const cursor = collection.find();
-    
-        const data = await cursor.toArray();
-        console.log("Documentos encontrados:");
-        console.log(data);
+        const result = await collection.updateOne(filter, { $set: update });
+        console.log(`Documento atualizado: ${result.modifiedCount} documento(s) atualizado(s)`);
 
         // Fecha a conexão com o banco de dados
         const client = collection.s.db.client;
         client.close();
-
-        return data;
     }
-    
-    
+
+    // const filter = { login: "Joao" }; // Filtre o documento que deseja atualizar
+    // const update = { senha: "4321" }; // Os campos a serem atualizados
+
+    updateData(filter, update).catch(console.error);
 });
 
+// Ok - Rota para excluir um produto
+app.get('/api/excluiproduto/:id', (req, res) => {
+    let idCondenado = req.params.id;
+    idCondenado = parseInt(idCondenado, 10)
+    
+    const filter = { id: idCondenado };
 
+    async function deleteData(filter) {
+        const collection = await conectaAoBancoDeDado("produto");
+
+        const result = await collection.deleteOne(filter);
+        console.log(`Documento excluído: ${result.deletedCount} documento(s) excluído(s)`);
+
+        // Fecha a conexão com o banco de dados
+        const client = collection.s.db.client;
+        client.close();
+    }
+
+    // const filter = { login: "Curso de node" }; // Filtre o documento que deseja excluir
+
+    deleteData(filter).catch(console.error);
+});
+
+// Ok - Rota para exibir todos os produtos
+app.get('/api/exibetodosprodutos/', async (req, res) => {
+    try {
+        const data = await readData();
+        // Remova o campo "_id" de cada documento
+        const dataWithoutId = data.map(doc => {
+            const { _id, ...rest } = doc;
+            return rest;
+        });
+
+        res.json(dataWithoutId);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao obter os dados do banco de dados.');
+    }
+});
+
+async function readData() {
+    const collection = await conectaAoBancoDeDado("produto");
+    const cursor = collection.find();
+    const data = await cursor.toArray();
+    console.log("Documentos encontrados:");
+    console.log(data);
+
+    // Fecha a conexão com o banco de dados
+    const client = collection.s.db.client;
+    client.close();
+
+    return data;
+}
 
 app.listen(port, () => {
     console.log(`Servidor está rodando na porta ${port}`);

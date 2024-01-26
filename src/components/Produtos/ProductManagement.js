@@ -10,24 +10,77 @@ const ProductManagement = () => {
   const [productDescription, setProductDescription] = useState("");
   const [productImage, setProductImage] = useState(null);
 
-  const addProduct = (newProduct) => {
+  const addProduct = async (newProduct) => {
     setProducts([...products, { ...newProduct, id: products.length + 1 }]);
+
+    try {
+      const response = await fetch(`http://localhost:3005/api/cadproduto/${products.length + 1}/${newProduct.name}/${newProduct.description}/${newProduct.price}/${newProduct.image}`);
+
+      console.log("products.id: ", products.id);
+      
+      console.log("newProduct.id: ", newProduct.id);
+
+
+      if (!response.ok) {
+        throw new Error('Erro ao cadastrar usuário');
+      }
+
+      const data = await response.json();
+      console.log('Produto cadastrado com sucesso:', data);
+
+
+    } catch (error) {
+      console.error('Erro ao cadastrar produto:', error.message);
+    }
+
     clearForm();
   };
 
-  const editProduct = (productId, updatedProduct) => {
+  const editProduct = async (productId, updatedProduct) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
         product.id === productId ? { ...product, ...updatedProduct } : product
       )
     );
+
+    try {
+      const response = await fetch(`http://localhost:3005/api/atualizaproduto/${productId}/${productName}/${productDescription}/${productPrice}/${productImage}`);
+
+      if (!response.ok) {
+        throw new Error('Erro ao atualizar produto');
+      }
+
+      const data = await response.json();
+      console.log('Produto atualizado com sucesso:', data);
+
+
+    } catch (error) {
+      console.error('Erro ao atualizar produto:', error.message);
+    }
+
     clearForm();
   };
 
-  const deleteProduct = (productId) => {
+  const deleteProduct = async (productId) => {
     setProducts((prevProducts) =>
       prevProducts.filter((product) => product.id !== productId)
     );
+
+    try {
+      const response = await fetch(`http://localhost:3005/api/excluiproduto/${productId}`);
+
+      if (!response.ok) {
+        throw new Error('Erro ao excluir produto');
+      }
+
+      const data = await response.json();
+      console.log('Produto excluir com sucesso:', data);
+
+
+    } catch (error) {
+      console.error('Erro ao excluir produto:', error.message);
+    }
+
     clearForm();
   };
 

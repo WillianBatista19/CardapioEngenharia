@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/nav';
 import Footer from '../Footer/Footer';
@@ -7,6 +7,8 @@ import Footer from '../Footer/Footer';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,18 +18,23 @@ const Login = () => {
     try {
       console.log('try')
       const response = await fetch(`http://localhost:3005/api/usuario/${email}/${password}`);
-      // console.log(response)
+      console.log("response:", response)
       if (!response.ok) {
           console.log('try 2')
           throw new Error('Erro ao buscar usuário');
       }
-
+      console.log('try 3')
       const data = await response.json();
 
       console.log('Usuário encontrado:', data);
+
+      setIsSuccess(true);
+      setError(null);
     } catch (error) {
         console.log('catch')
         console.error('Erro ao buscar usuário:', error.message);
+        setIsSuccess(false);
+        setError('Usuário e/ou Senha incorreto(s). Tente novamente.');
     }
   };
 
@@ -41,6 +48,19 @@ const Login = () => {
             <h2 className="display-4">Bem-vindo de volta!</h2>
             <p>Por favor, faça login na sua conta.</p>
           </div>
+
+            {isSuccess && (
+              <Alert variant="success" onClose={() => setIsSuccess(false)} dismissible>
+                Login realizado com sucesso
+              </Alert>
+            )}
+
+            {error && (
+              <Alert variant="danger" onClose={() => setError(null)} dismissible>
+                {error}
+              </Alert>
+            )}
+
           <Form onSubmit={handleSubmit} className="form-container">
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
